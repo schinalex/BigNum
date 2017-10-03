@@ -1,3 +1,6 @@
+'use strict'
+
+// BigNum :: a -> BigNum(b)
 const BigNum = n => {
   const num = Array.isArray(n)
     ? n
@@ -8,10 +11,10 @@ const BigNum = n => {
   const a = {
     num,
     empty: () => BigNum(0),
-    add: x => add(x, a),
-    subtract: x => subtract(x, a),
-    multiply: x => multiply(x, a),
-    divide: x => divide(x, a),
+    plus: x => add(x, a),
+    minus: x => subtract(x, a),
+    times: x => multiply(x, a),
+    obelus: x => divide(x, a),
     compare: (byThis, x) => compare(byThis, x, a),
     length: num.length,
     inspect: () => `BigNum(${num.join('')})`
@@ -19,9 +22,13 @@ const BigNum = n => {
   return a
 }
 
+// lastDigit :: Number -> String
 const lastDigit = n => n.toString().split('').reverse()[0]
+
+// firstDigit :: Number -> String
 const firstDigit = n => n.toString()[0]
 
+// add :: (BigNum, BigNum) -> BigNum
 const add = ({num: a}, {num: b}) => { // to refactor
   const [xs, ys] = a.length > b.length
     ? [a.reverse(), b.reverse()]
@@ -38,27 +45,31 @@ const add = ({num: a}, {num: b}) => { // to refactor
   return BigNum(result.reverse())
 }
 
+// subtract :: (BigNum, BigNum) -> BigNum
 const subtract = ({num: a}, {num: b}) => {
   // to be continued...
 }
 
-const multiply = (a, n) => { // to refactor
+// multiply :: (BigNum, BigNum) -> BigNum
+const multiply = (multiplier, multiplicand) => { // to refactor
   let product = BigNum(0)
-  for (let i = 0; i < n; i++) { // n needs to be a BigNum as well
-    product = product.concat(a)
+  for (let i = 0; i < multiplier; i++) { // multiplier needs to be a BigNum as well
+    product = product.plus(multiplicand)
   }
   return product
 }
 
-const divide = (a, b) => {
+// divide :: (BigNum, BigNum) -> BigNum
+const divide = (divisor, dividend) => {
   // to be continued...
 }
 
+// compare :: (BigNum, BigNum) -> Boolean
 const compare = (a, b) => {
   // to be even more continued...
 }
 
 console.log(lastDigit(5), lastDigit(123))
 console.log(BigNum(['1', '2', '3']))
-console.log(BigNum(273).add(BigNum(455)))
-console.log(BigNum(2).multiply(2))
+console.log(BigNum(273).plus(BigNum(455)))
+console.log(BigNum(2).times(2))
