@@ -1,14 +1,14 @@
 'use strict'
 
-const {firstDigit, lastDigit} = require('./utils')
+const {reverse, firstDigit, lastDigit} = require('./utils')
 
 // BigNum :: a -> BigNum(b)
 const BigNum = n => {
   const num = Array.isArray(n)
     ? n
     : typeof n === 'number'
-      ? n.toString().split('')
-      : ['0']
+      ? n.toString().split('').map(Number)
+      : [0]
 
   const a = {
     num,
@@ -17,6 +17,7 @@ const BigNum = n => {
     minus: x => subtract(x, a),
     times: x => multiply(x, a),
     obelus: x => divide(x, a),
+    lessThan: x => lessThan(x, a),
     compare: (byThis, x) => compare(byThis, x, a),
     length: num.length,
     inspect: () => `BigNum(${num.join('')})`
@@ -27,18 +28,22 @@ const BigNum = n => {
 // add :: (BigNum, BigNum) -> BigNum
 const add = ({num: a}, {num: b}) => { // to refactor
   const [xs, ys] = a.length > b.length
-    ? [a.reverse(), b.reverse()]
-    : [b.reverse(), a.reverse()]
+    ? [a, b].map(reverse)
+    : [b, a].map(reverse)
   const result = []
   let remainder = 0
   xs.forEach((x, i) => {
-    const sum = Number(x) + Number(ys[i]) + remainder
-    remainder = firstDigit(sum)
+    const y = ys[i]
+      ? ys[i]
+      : 0
+    const sum = x + y + remainder
+    remainder = sum < 9
+      ? 0
+      : firstDigit(sum)
     result.push(lastDigit(sum))
   })
-  if (remainder === '1') result.push(remainder)
-
-  return BigNum(result.reverse())
+  if (remainder === 1) result.push(remainder)
+  return BigNum(reverse(result))
 }
 
 // subtract :: (BigNum, BigNum) -> BigNum
@@ -50,8 +55,12 @@ const subtract = (minuend, subtrahend) => {
 // multiply :: (BigNum, BigNum) -> BigNum
 const multiply = (multiplier, multiplicand) => { // to refactor
   let product = BigNum(0)
-  for (let i = 0; i < multiplier; i++) { // multiplier needs to be a BigNum as well
+  console.log(product, multiplicand)
+  for (let i = BigNum(0); i.lessThan(multiplier); i = i.plus(BigNum(1))) {
+    console.log('==============================')
+    console.log(product, multiplicand)
     product = product.plus(multiplicand)
+    console.log(product, multiplicand)
   }
   return product
 }
@@ -63,7 +72,33 @@ const divide = (divisor, dividend) => {
 
 // compare :: (BigNum, BigNum) -> Boolean
 const compare = (a, b) => {
-  // to be even more continued...
+  // to be even more continued..
+}
+
+// compare :: (BigNum, BigNum) -> Boolean
+const lessThan = (a, b) => { // b < a ?
+  let answer = false
+  if (b.length < a.length) answer = true
+  if (b.length === a.length) {
+    const digitsA = a.num
+    const digitsB = b.num
+    answer = digitsA.some((x, i) => {
+      if (digitsB[i] < digitsA[i]) return true
+    })
+  }
+  return answer
+}
+
+const equal = (a, b) => {
+  if (a.length !== b.length) {
+    return false
+  } else {
+    const digitsA = a.num
+    const digitsB = b.num
+    return !digitsA.some((x, i) => {
+      if (digitsB[i] !== digitsA[i]) return true
+    })
+  }
 }
 
 module.exports = BigNum

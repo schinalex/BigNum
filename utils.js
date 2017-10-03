@@ -1,7 +1,12 @@
 'use strict'
 
-// lastDigit :: Number -> String
-exports.lastDigit = n => n.toString().split('').reverse()[0]
+// reverse :: Array -> Array
+const reverse = arr => arr.map(x => x).reverse()
 
-// firstDigit :: Number -> String
-exports.firstDigit = n => n.toString()[0]
+// firstDigit :: Number -> Number
+const firstDigit = n => Number(n.toString()[0])
+
+// lastDigit :: Number -> Number
+const lastDigit = n => Number(reverse(n.toString().split(''))[0])
+
+module.exports = {firstDigit, lastDigit, reverse}
