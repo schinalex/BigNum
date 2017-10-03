@@ -60,5 +60,5 @@ const compare = (a, b) => {
 
 console.log(lastDigit(5), lastDigit(123))
 console.log(BigNum(['1', '2', '3']))
-console.log(BigNum(273).concat(BigNum(455)))
+console.log(BigNum(273).add(BigNum(455)))
 console.log(BigNum(2).multiply(2))
