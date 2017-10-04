@@ -12,13 +12,15 @@ const BigNum = n => {
 
   const a = {
     num,
+    fold: () => num.join(''),
     empty: () => BigNum(0),
     plus: x => add(x, a),
     minus: x => subtract(x, a),
     times: x => multiply(x, a),
     obelus: x => divide(x, a),
+    concat: x => add(x, a),
+    equal: x => equal(x, a),
     lessThan: x => lessThan(x, a),
-    compare: (byThis, x) => compare(byThis, x, a),
     length: num.length,
     inspect: () => `BigNum(${num.join('')})`
   }
@@ -55,12 +57,13 @@ const subtract = (minuend, subtrahend) => {
 // multiply :: (BigNum, BigNum) -> BigNum
 const multiply = (multiplier, multiplicand) => { // to refactor
   let product = BigNum(0)
-  console.log(product, multiplicand)
+  // console.log(product, multiplicand)
   for (let i = BigNum(0); i.lessThan(multiplier); i = i.plus(BigNum(1))) {
-    console.log('==============================')
-    console.log(product, multiplicand)
+    // console.log(i.fold())
+    // console.log('==============================')
+    // console.log(product, multiplicand)
     product = product.plus(multiplicand)
-    console.log(product, multiplicand)
+    // console.log(product, multiplicand)
   }
   return product
 }
@@ -70,12 +73,20 @@ const divide = (divisor, dividend) => {
   // to be continued...
 }
 
-// compare :: (BigNum, BigNum) -> Boolean
-const compare = (a, b) => {
-  // to be even more continued..
+// equal :: (BigNum, BigNum) -> Boolean
+const equal = (a, b) => {
+  if (a.length !== b.length) {
+    return false
+  } else {
+    const digitsA = a.num
+    const digitsB = b.num
+    return !digitsA.some((x, i) => {
+      if (digitsB[i] !== digitsA[i]) return true
+    })
+  }
 }
 
-// compare :: (BigNum, BigNum) -> Boolean
+// lessThan :: (BigNum, BigNum) -> Boolean
 const lessThan = (a, b) => { // b < a ?
   let answer = false
   if (b.length < a.length) answer = true
@@ -87,18 +98,6 @@ const lessThan = (a, b) => { // b < a ?
     })
   }
   return answer
-}
-
-const equal = (a, b) => {
-  if (a.length !== b.length) {
-    return false
-  } else {
-    const digitsA = a.num
-    const digitsB = b.num
-    return !digitsA.some((x, i) => {
-      if (digitsB[i] !== digitsA[i]) return true
-    })
-  }
 }
 
 module.exports = BigNum
