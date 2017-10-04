@@ -1,7 +1,7 @@
 # BigNum
 Trying to create a BigNum monoid to contain really big numbers.
 
-P.S. Naive implementation - storing the number as an array of strings (example: `['9', '8', '9']`).<br/>
+P.S. Naive implementation - storing the number as an array of numbers (example: `[9, 8, 9]`).<br/>
      I'm also not concerned about performance or memory usage for now.
 
 
