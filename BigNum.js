@@ -39,7 +39,7 @@ const add = ({num: a}, {num: b}) => { // to refactor
       ? ys[i]
       : 0
     const sum = x + y + remainder
-    remainder = sum < 9
+    remainder = sum <= 9
       ? 0
       : firstDigit(sum)
     result.push(lastDigit(sum))
@@ -57,13 +57,8 @@ const subtract = (minuend, subtrahend) => {
 // multiply :: (BigNum, BigNum) -> BigNum
 const multiply = (multiplier, multiplicand) => { // to refactor
   let product = BigNum(0)
-  // console.log(product, multiplicand)
   for (let i = BigNum(0); i.lessThan(multiplier); i = i.plus(BigNum(1))) {
-    // console.log(i.fold())
-    // console.log('==============================')
-    // console.log(product, multiplicand)
     product = product.plus(multiplicand)
-    // console.log(product, multiplicand)
   }
   return product
 }
@@ -87,7 +82,7 @@ const equal = (a, b) => {
 }
 
 // lessThan :: (BigNum, BigNum) -> Boolean
-const lessThan = (a, b) => { // b < a ?
+const lessThan = (a, b) => {
   let answer = false
   if (b.length < a.length) answer = true
   if (b.length === a.length) {

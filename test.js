@@ -42,8 +42,8 @@ expect(BigNum(1).plus(BigNum(9)).fold()).toEqual(10)
 expect(BigNum(999).plus(BigNum(1)).fold()).toEqual(1000)
 expect(BigNum(1).plus(BigNum(999)).fold()).toEqual(1000)
 expect(BigNum(199).plus(BigNum(1)).fold()).toEqual(200)
-expect(BigNum(18).plus(BigNum(1)).fold()).toEqual(19) // fails with 109
-expect(BigNum(918).plus(BigNum(1)).fold()).toEqual(919) // fails with 1009
+expect(BigNum(18).plus(BigNum(1)).fold()).toEqual(19)
+expect(BigNum(918).plus(BigNum(1)).fold()).toEqual(919)
 
 // lessThan
 expect(BigNum(1).lessThan(BigNum(0))).toEqual(false)
@@ -56,14 +56,14 @@ expect(BigNum(100).lessThan(BigNum(0))).toEqual(false)
 // multiplication
 expect(BigNum(0).times(BigNum(1)).fold()).toEqual(0)
 expect(BigNum(1).times(BigNum(10)).fold()).toEqual(10)
-expect(BigNum(1).times(BigNum(19)).fold()).toEqual(19) // fails with 109
+expect(BigNum(1).times(BigNum(19)).fold()).toEqual(19)
 expect(BigNum(1).times(BigNum(0)).fold()).toEqual(0)
 expect(BigNum(1).times(BigNum(1)).fold()).toEqual(1)
 expect(BigNum(2).times(BigNum(3)).fold()).toEqual(6)
-expect(BigNum(1).times(BigNum(99)).fold()).toEqual(99) // fails with 109
+expect(BigNum(1).times(BigNum(99)).fold()).toEqual(99)
 expect(BigNum(100).times(BigNum(0)).fold()).toEqual(0)
 expect(BigNum(100).times(BigNum(1)).fold()).toEqual(100)
-expect(BigNum(1).times(BigNum(99)).fold()).toEqual(99) // fails with 109
+expect(BigNum(1).times(BigNum(99)).fold()).toEqual(99)
 
 // factorial
 expect(factorial(0).fold()).toEqual(1)
@@ -72,7 +72,7 @@ expect(factorial(2).fold()).toEqual(2)
 expect(factorial(3).fold()).toEqual(6)
 expect(factorial(4).fold()).toEqual(24)
 expect(factorial(5).fold()).toEqual(120)
-// expect(factorial(1000).fold()).toEqual(FACTORIAL_OF_1000) // fails
+// expect(factorial(1000).fold()).toEqual(FACTORIAL_OF_1000) // takes too much time
 // expect(factorial(1000000).length).toEqual(5565709) // don't run this :D
 
 console.log('Done!')
